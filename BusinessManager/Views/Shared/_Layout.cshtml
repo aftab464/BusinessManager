@@ -1,0 +1,791 @@
+﻿<!DOCTYPE html>
+<html id="top" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewBag.Title</title>
+
+    <meta name="description" content="A live database of Business Manager with which a small and large business can be handle">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    @Styles.Render("~/Content/BM/css/bm_css")
+    @Styles.Render("~/Content/BM/css/plugins/AppPages")
+    @RenderSection("Styles", required: false)
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="icon"
+          type="image/png"
+          href="~/Content/BM/images/logoIcon.png" />
+    <style>
+        #SendRequestBox {
+            position: fixed !important;
+        }
+    </style>
+
+</head>
+
+
+<body>
+ 
+    <!--[if lt IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="wrapper">
+        <header>
+            <div class="contentContainer">
+                <div class="logoWrapp">
+                    <a href="~/Home/Index"><img src="~/Content/BM/images/logo.png" alt="Orcha"></a>
+                </div>
+
+                <nav>
+                    <a class="toggleMenu float-right" href="javascript:void(0);"><div class="arrow "></div></a>
+                    <ul class="nav clearfix">
+                        @if (Request.IsAuthenticated)
+                        {
+
+                            <li><a href="@Url.Content("~/Account/LogOff")" id="logoutHeader1">Logout</a></li>
+                        }
+                        @*else
+                            {
+                                @*<li><a href="#">Membership</a></li>
+                            }*@
+
+
+
+                        <li><a href="@Url.Content("~/Home/About")">About</a></li>
+                        @*<li><a href="@Url.Action("Index","News")">News</a></li>*@
+                        <li class="smallResLinks">
+                            <a href="~/Search/" class="searchBtn ">
+                                Find Transactions
+                                <i class="searchIcon"></i>
+                            </a>
+                        </li>
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="smallResLinks"><a href="#" class="signupBtn signupLink" id="signupHeader2" style="display:none">Sign Up</a></li>
+
+                        
+                                <li class="smallResLinks">
+                                    <a href="" class="searchBtn myDashboardBtn">My Dashboard<i class="userIcon"></i></a>
+                                </li>
+                        }
+                        else
+                        {
+                            <li class="smallResLinks"><a href="#" class="signupBtn signupLink" id="signupHeader2">Sign Up</a></li>
+                            <li class="smallResLinks">
+                                <a href="@Url.Content("~/Account/Login")" id="loginHeader1" class="loginBtn loginLink">login</a>
+                            </li>
+                        }
+
+
+
+                    </ul>
+                </nav>
+
+                <div class="headerAction">
+                    <a href="~/Search/" class="searchBtn">Find Transactions<i class="searchIcon"></i></a>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a href="#" class="signupBtn signupLink" id="signupHeader1" style="display:none">Sign Up</a>
+                       
+                          <a href="@Url.Content("~/MyOrcha/Index")" class="searchBtn myDashboardBtn">My Apps<i class="userIcon"></i></a>
+                      
+
+                         
+                    }
+                    else
+                    {
+                        <a href="#" class="signupBtn signupLink" id="signupHeader1">Sign Up</a>
+                        <a href="#" id="loginHeader2" class="loginBtn loginLink">Login</a>
+                    }
+
+
+                </div><!-- headerAction -->
+
+            </div>
+        </header>
+
+        <div id="loginConent" class="simplePopup">
+
+            <div class="resetWrapp" id="resetPopupForm">
+                <h2>Reset Password</h2>
+
+                @Html.AntiForgeryToken()
+                <div class="formrow">
+                    <div class="leftCol rswCol">
+                        <label for="Email">Email</label>
+                        <input class="formField" type="email" name="Email" id="Email" placeholder="Enter your email address here" />
+                    </div>
+                    <div class="leftCol signupLink" style="display:block">
+                        Not a member yet? <a href="" id="resetSignupBtn">Sign Up</a>
+                    </div>
+                </div>
+                <div class="formrow">
+                    <div class="rightCol btnCol">
+                        <input class="moreBtn" type="button" value="Reset" id="resetPasswordButton" />
+                        <input class="moreBtn cnclBtn" type="reset" id="resetCancel" onclick="hideandshow('resetPopupForm', 'loginPopupForm')" value="Cancel" />
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="loginWrapp" id="loginPopupForm">
+                <h2>Login</h2>
+                <form action="" id="loginForm">
+                    @Html.AntiForgeryToken()
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label for="Email">Email</label>
+                            <input class="formField" type="email" name="Email" id="Email" placeholder="Enter your email address here" />
+                        </div>
+                        <div class="rightCol">
+                            <label for="Password">Password</label>
+                            <input class="formField" type="password" name="Password" id="Password" placeholder="Enter your password here" />
+                        </div>
+                    </div><!-- formrow -->
+                    <div class="formrow">
+                        <div class="rightCol forgotLink">
+                            Forgotten password? <a href="#" onclick="hideandshow('loginPopupForm', 'resetPopupForm')">Reset</a>
+                        </div>
+                    </div><!-- formrow -->
+                    <div class="formrow">
+                        <div class="rightCol btnCol">
+                            <input class="moreBtn" type="submit" value="Login" id="LoginButton" />
+                            <input class="moreBtn cnclBtn" id="loginCancel" type="reset" value="Cancel" />
+                        </div>
+                        <div class="leftCol signupLink" style="display:none">
+                            Not a member yet? <a href="#">Sign Up</a>
+                        </div>
+
+                    </div><!-- formrow -->
+                </form>
+            </div>
+
+
+
+        </div><!--loginConent-->
+
+        <div id="signupConent" class="simplePopup">
+
+            <div class="signupWrapp">
+
+                <h2>
+                    Sign up<br /><span>All fields are mandatory except mobile phone number</span>
+                    <br /><span>Are you a developer or app publisher?<a href="mailto:hello@orcha.co.uk">Contact us for a special account!</a></span>
+                </h2>
+
+                <form action="" id="signupForm">
+                    @Html.AntiForgeryToken()
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label for="firstName">First Name</label>
+                            <input class="formField" type="text" name="FirstName" id="firstName" placeholder="Enter your first name here" />
+                        </div>
+                        <div class="rightCol">
+                            <label for="lastName">Last Name</label>
+                            <input class="formField" type="text" name="LastName" id="lastName" placeholder="Enter your last name here" />
+                        </div>
+                    </div><!-- formrow -->
+
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label for="email">Email</label>
+                            <input class="formField" type="email" name="Email" id="email" placeholder="Enter your email address here" />
+                        </div>
+                        <div class="rightCol">
+                            <label for="postCode">Postcode</label>
+                            <input class="formField" type="text" name="PostCode" id="postCode" placeholder="Enter your postcode here" />
+                        </div>
+                    </div><!-- formrow -->
+
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label>Date of Birth</label>
+                            <select name="Day" id="Day" class="dropdown" required>
+                                <option value="">Day</option>
+                                @for (int i = 1; i < 32; i++)
+                                {
+                                    <option>@i</option>
+                                }
+                            </select>
+                            @{ var months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" }; }
+                            <select name="Month" id="Month" class="dropdown" required>
+                                <option value="">Month</option>
+                                @for (int i = 0; i < 12; i++)
+                                {
+                                    <option>@months[i]</option>
+                                }
+                            </select>
+                            <select name="YearOfBirth" id="YearOfBirth" class="dropdown" required>
+                                <option value="">Year</option>
+                                @for (int i = DateTime.Now.Year - 10; i >= DateTime.Now.Year - 100; i--)
+                                {
+                                    <option>@i</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="rightCol genderCell">
+                            <label>Gender</label>
+                            <select name="Gender" id="Gender" class="dropdown" required>
+                                <option value="">Choose your gender</option>
+                                <option>Female</option>
+                                <option>Male</option>
+                            </select>
+
+                        </div>
+
+                        <div id="dateError">
+
+                        </div>
+                    </div><!-- formrow -->
+
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label for="phoneNumber">Mobile Phone Number</label>
+                            <input class="formField" type="text" name="PhoneNumber" id="phoneNumber" placeholder="Enter your phone number here" />
+                        </div>
+                    </div><!-- formrow -->
+
+                    <div class="formrow ">
+                        <div class="leftCol">
+                            <label for="password">Password</label>
+                            <input class="formField" type="password" name="Password" id="password" placeholder="Enter password here" required />
+                        </div>
+                        <div class="rightCol">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input class="formField" type="password" name="ConfirmPassword" id="confirmPassword" placeholder="Confirm password here" required />
+                        </div>
+                    </div><!-- formrow -->
+
+                    <div class="formrow">
+                        <div class="rightCol btnCol">
+                            <input class="moreBtn" type="submit" id="registerBtn" value="Sign Up" />
+                            <input class="moreBtn cnclBtn" type="reset" id="signupCancel" value="Cancel" />
+                        </div>
+                        <div class="leftCol signupLink">
+                            Already a member? <a href="#" id="signUpLinkLogin">Login</a>
+                        </div>
+                    </div><!-- formrow -->
+                </form>
+            </div>
+        </div><!--signupConent-->
+        <!-- Edit profile-->
+
+
+        <div class="main">
+
+
+
+
+
+            @RenderBody()
+
+
+
+
+
+        </div><!-- main -->
+
+        <div class="root_footer"></div>
+
+    </div> <!-- wrapper -->
+
+    <div class="back-to-top">
+        <div><p>Back To Top</p><a href="#top"><i class="fa-chevron-up"></i></a></div>
+    </div>
+
+    <footer class="siteFooter">
+        <div class="contentContainer">
+            <div class="footerLogo">
+                <img src="~/Content/BM/images/footerLogo.png" />
+            </div>
+            <ul class="footerNav">
+                <li class="no-mobile"><a href="#">About</a></li>
+                @* <li class="no-mobile"><a href="@Url.Action("Index","News")">News</a></li>*@
+                <li><a class="btn aquaBackground" href="#">Contact</a></li>
+            </ul>
+            <ul class="footerSocial">
+                <li><a href="https://www.facebook.com/" target="_blank"><i class="fbIcon"></i></a></li>
+                @*<li><a href="https://twitter.com/OrchaUK" target="_blank"><i class="twIcon"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/orcha" target="_blank"><i class="fa-linkedin"></i></a></li>*@
+            </ul>
+            <div class="footerBottom">
+                <ul class="footerNav float-left">
+                    @*<li><a class="font16" href="#">Terms of Use</a></li>*@
+                    @*<li><a class="font16" href="@Url.Content("~/Home/PrivacyPolicy")">Privacy Policy</a></li>
+                    <li><a class="font16" href="@Url.Content("~/Home/LegalStatement")">Terms & Conditions</a></li>*@
+                </ul>
+                <ul class="footerNav float-right">
+                    <li><span class="font16">Copyright &copy; Business Manager 2016</span></li>
+
+                </ul>
+            </div><!-- footerBottom -->
+        </div>
+    </footer><!-- footer -->
+    @Scripts.Render("~/Scripts/BM/jQuery")
+    @Scripts.Render("~/Scripts/BM/bm_js")
+    @Scripts.Render("~/Scripts/BM/sweetalert")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        function
+        hideandshow(hide, show) {
+
+            $("#" + hide).hide();
+            $("#" + show).show();
+
+        }
+
+        $('#resetSignupBtn').click(function (e) {
+            e.preventDefault();
+            $('#signupConent').simplePopup();
+            $('#signupForm')[0].reset();
+            $('label.error').hide();
+        });
+        $('#signUpLinkLogin').click(function (e) {
+
+
+            e.preventDefault();
+
+            $('.simplePopup,.simplePopupBackground').fadeOut("fast");
+
+            $('#loginHeader1,#loginHeader2').trigger('click');
+        });
+        $(document).ready(function () {
+
+
+
+            $('#loginCancel').click(function () {
+                $('#loginForm')[0].reset();
+                $('.simplePopup,.simplePopupBackground').fadeOut("fast");
+            });
+
+            $('#signupCancel').click(function () {
+                $('#signupForm')[0].reset();
+                $('.simplePopup,.simplePopupBackground').fadeOut("fast");
+            });
+
+            $("#resetPasswordButton").click(function () {
+                var email = $('#Email').val();
+                if (email.trim() != null) {
+                    var reset = { Email: email };
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("ForgotPassword","Account")',
+                        data: AddAntiForgeryToken(reset),
+                        datatype: "html",
+                        success: function (data) {
+
+                            $('#Email').val("");
+                            if (data.success) {
+                                alert(data.message);
+
+                            }
+                            else {
+                                alert(data.message);
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    alert("Please Enter the required information.");
+                }
+
+            });
+
+
+
+            $('#YearOfBirth').ddslick({
+                width: '100%'
+            });
+            $('#Month').ddslick({
+                width: '100%'
+            });
+            $('#Day').ddslick({
+                width: '100%'
+            });
+
+            $('#Gender').ddslick({
+                width: '100%',
+                onSelected: function (data) {
+
+
+                    var value = data.selectedIndex;
+                    if (value == 0) {
+                        $('#genderError').show();
+                    } else {
+
+                        $('#genderError').hide();
+                    }
+                }
+            });
+
+
+
+            $('#LoginButton').click(function (e) {
+
+                e.preventDefault();
+
+                $("#loginForm").validate({
+                    rules: {
+                        Password: {
+                            required: true,
+                            minlength: 6
+                        },
+                        Email: {
+                            required: true,
+                            email: true,
+                            regex: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+                        }
+                    },
+                    messages: {
+                        Email: {
+                            required: "Please enter your email",
+                            email: "Email should be in the form example@test.com",
+                            regex: "Email should be in the form example@test.com"
+                        },
+                        Password: {
+                            required: "Please enter your password",
+                            minlength: "Password must be at least 6 characters in length"
+                        }
+                    }
+                });
+
+                $('#loginform :input').change(function () {
+                    $('label.error').css('color', 'red');
+                    var isFormValid = $('#loginForm').valid();
+
+                });
+
+                if ($('#loginHeader1').text() == "Login" && $('#loginHeader2').text() == "Login") {
+
+
+                    var isFormValid = $('#loginForm').valid();
+                    $('label.error').css('color', 'red');
+                    if (isFormValid) {
+
+                        var form = $('#loginForm').serialize();
+
+
+                    $.blockUI({
+                        overlayCSS:
+                            { backgroundColor: '#e9fcfb' },
+                        message: "<p class='loginMsg'>Please wait...</p>",
+                        css: { border: '2px solid #4a9acf' }
+                    });
+
+                    $.ajax({
+
+                        url: "@Url.Content("~/Account/Login")",
+                        method: "POST",
+                        data: AddAntiForgeryToken(form + "&returnUrl=@ViewBag.ReturnUrl"),
+                        dataType: "json",
+
+                        success: function (response) {
+
+                            if (response.result == "Redirect") {
+
+                                $('#loginHeader1,#loginHeader2').hide();
+                                $('#logoutHeader1,#logoutHeader2').show();
+
+                                //send login request for login on other domain
+                                //sendRemoteLoginRequest(response.data);
+                                if (response.isPro) {
+                                    window.location.href = window.location.protocol + "//"+response.url;
+                                    return;
+                                }
+
+                                if (response.url == "")
+                                    window.location.reload();
+                                else
+                                    window.location = response.url;
+
+                                } else if (response.result == "Error") {
+
+                                    $('.loginMsg').text('Invalid username or password.');
+
+
+                                    setTimeout($.unblockUI, 1000);
+                                    $(".leftCol,.rightCol").addClass("errorMsg");
+                                } else if (response.result == "ErrorLogin") {
+                                    $('.loginMsg').text(response.message);
+
+
+                                    setTimeout($.unblockUI, 1000);
+                                    $(".leftCol,.rightCol").addClass("errorMsg");
+                                }
+
+                            },
+                            fail: function (jqXhr, exception) {
+                                customJQueryAjaxMsgs(jqXhr, exception, ".loginMsg");
+                            }
+                        });
+
+                    }
+                }
+            });
+
+
+            $('#Email,#Password').change(function () {
+
+                $(".leftCol,.rightCol").removeClass("errorMsg");
+            });
+
+
+
+
+
+
+
+            $('#registerBtn').click(function (e) {
+
+                e.preventDefault();
+
+
+
+
+                $("#signupForm").validate({
+
+                    rules: {
+                        FirstName: {
+                            required: true,
+                            minlength: 3,
+                            maxlength: 100,
+                            regex: "^[a-zA-Z -]+[\'-]?[a-zA-Z -]+$"
+
+                        },
+                        LastName: {
+                            required: true,
+                            minlength: 3,
+                            maxlength: 100,
+                            regex: "^[a-zA-Z -]+[\'-]?[a-zA-Z -]+$"
+
+                        },
+                        Email: {
+                            required: true,
+                            email: true,
+                            regex: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+                        },
+                        PostCode: {
+                            required: true,
+                            regex: "^([A-PR-UWYZa-pr-uwyz]([0-9]{1,2}|([A-HK-Ya-hk-y][0-9]|[A-HK-Ya-hk-y][0-9]([0-9]|[ABEHMNPRV-Yabehmnprv-y]))|[0-9][A-HJKS-UWa-hjks-uw])\ {0,1}[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}|([Gg][Ii][Rr]\ 0[Aa][Aa])|([Ss][Aa][Nn]\ {0,1}[Tt][Aa]1)|([Bb][Ff][Pp][Oo]\ {0,1}([Cc]\/[Oo]\ )?[0-9]{1,4})|(([Aa][Ss][Cc][Nn]|[Bb][Bb][Nn][Dd]|[BFSbfs][Ii][Qq][Qq]|[Pp][Cc][Rr][Nn]|[Ss][Tt][Hh][Ll]|[Tt][Dd][Cc][Uu]|[Tt][Kk][Cc][Aa])\ {0,1}1[Zz][Zz]))$"
+                        },
+                        PhoneNumber: {
+                            regex: /^((\+44)|0)7\d{3}[ ]?\d{6}$/
+                        },
+                        Password: {
+                            required: true,
+                            minlength: 6
+                        },
+                        ConfirmPassword: {
+                            required: true,
+                            equalTo: "#signupForm #password"
+                        }
+                    },
+                    messages: {
+                        FirstName: {
+                            required: "Please enter your first name",
+                            minlength: "First name must be at least 3 characters in length",
+                            maxlength: "First name must not be more than 100 characters in length",
+                            regex: "Please enter a valid first name"
+                        },
+                        LastName: {
+                            required: "Please enter your last name",
+                            minlength: "Last name must be at least 3 characters in length",
+                            maxlength: "Last name must not be more than 100 characters in length",
+                            regex: "Please enter a valid last name"
+                        },
+                        Email: {
+                            required: "Please enter an email address",
+                            email: "Email should be in the form example@test.com",
+                            regex: "Email should be in the form example@test.com"
+                        },
+                        PostCode: {
+                            required: "Please enter a postcode",
+                            regex: "Please enter a valid postcode"
+                        },
+                        PhoneNumber: {
+                            regex: "Please enter a valid UK mobile phone number"
+                        },
+                        Password: {
+                            required: "Please enter a password",
+                            minlength: "Password must be at least 6 characters in length"
+                        },
+                        ConfirmPassword: {
+                            required: "Please confirm your password",
+                            equalTo: "Passwords do not match"
+                        }
+                    }
+                });
+
+
+
+                var isFormValid = $('#signupForm').valid();
+                $('label.error').css('color', 'red');
+
+                var gender = $('#Gender').data('ddslick').selectedIndex;
+
+
+
+                if (gender == 0) {
+                    $('#genderError').show();
+                    isGenderValid = false;
+
+
+                } else {
+                    $('#genderError label').hide();
+                    isGenderValid = true;
+                }
+
+                var isDateValid = checkDate();
+
+                if (isFormValid && isGenderValid && isDateValid) {
+
+                    var signUpForm = $('#signupForm');
+                    userRecordForHubSpot(signUpForm, '14a0089e-d458-48e8-b4e1-508c35685587');
+
+
+                    year = $('#YearOfBirth').data('ddslick').selectedData.value;
+                    month = $('#Month').data('ddslick').selectedData.value;
+                    day = $('#Day').data('ddslick').selectedData.value;
+                    gender = $('#Gender').data('ddslick').selectedData.value;
+                    var dateOfBirth = getFormatedDate(day, month, year);
+
+                    $.blockUI({
+                        overlayCSS:
+                            { backgroundColor: '#e9fcfb' },
+                        message: "<p class='RegMsg'>Please wait...</p>",
+                        css: { border: '2px solid #4a9acf', 'word-wrap': 'break-word' }
+                    });
+
+                    var form = signUpForm.serialize();
+
+                    $.ajax({
+                        url: '@Url.Action("Register", "Account")',
+                        data: AddAntiForgeryToken(form + "&Gender=" + gender + "&DateOfBirth=" + dateOfBirth),
+                        method: 'POST',
+                        dataType: 'json',
+                        success: function (response) {
+
+                            if (response.success == "true") {
+
+                                $('.RegMsg').html('Registeration successfull, Please wait...');
+                                setTimeout($.unblockUI, 1000);
+
+                                window.location.replace(response.url);
+
+                            } else if (response.success == "false") {
+
+                                var errors = response.error.split(",");
+                                var errorText = "";
+
+                                $.each(errors, function (index, value) {
+                                    if (value.toString().indexOf('Name') > -1) {
+                                        value = value.toString().replace('Name', 'Email');
+                                    }
+                                    errorText += value + "<br>";
+                                });
+
+
+                            }
+                        },
+                        fail: function (jqXhr, exception) {
+                            customJQueryAjaxMsgs(jqXhr, exception, ".RegMsg");
+
+                        }
+
+                    });
+                }
+            });
+
+            $('#signupForm :input,#loginform :input').change(function () {
+                $('label.error').css('color', 'red');
+            })
+
+
+        });
+
+
+        $('#loginform :input').bind('blur', Errify);
+        $('#loginform :input').bind('change', Errify);
+        $('#loginform :input').bind('focusout', Errify);
+        $('#loginform :input').bind('keyup', Errify);
+
+        $('#signupForm :input').bind('blur', Errify);
+        $('#signupForm :input').bind('change', Errify);
+        $('#signupForm :input').bind('focusout', Errify);
+        $('#signupForm :input').bind('keyup', Errify);
+
+
+        //function Errify() {
+        //    $('label.error').css('color', 'red');
+        //}
+
+
+
+        function checkDate() {
+
+            var dateValid = false;
+
+            var isYearValid = false;
+            var isMonthValid = false;
+            var isDayValid = false;
+
+            var year = $('#YearOfBirth').data('ddslick').selectedIndex;
+            var month = $('#Month').data('ddslick').selectedIndex;
+            var day = $('#Day').data('ddslick').selectedIndex;
+
+
+            if (year == 0) {
+                // $('#dateError label').show();
+                isYearValid = false;
+
+            } else {
+                //  $('#dateError label').hide();
+                isYearValid = true;
+
+            }
+
+            if (month == 0) {
+                //  $('#dateError label').show();
+                isMonthValid = false;
+            } else {
+                //  $('#dateError label').hide();
+                isMonthValid = true;
+            }
+            if (day == 0) {
+                //  $('#dateError label').show();
+                isDayValid = false;
+            } else {
+                //  $('#dateError label').hide();
+                isDayValid = true;
+            }
+
+            if (!(isYearValid && isMonthValid && isDayValid)) {
+                dateValid = false;
+                $('#dateError label').hide();
+                $("<label id='DayError' style='color:red' for='YearOfBirth' class='error'>Please select a valid date</label>").appendTo('#dateError');
+            }
+            else {
+                $('#dateError label').hide();
+                dateValid = true;
+            }
+
+            return dateValid;
+        }
+
+
+
+
+    </script>
+
+</body>
+</html>

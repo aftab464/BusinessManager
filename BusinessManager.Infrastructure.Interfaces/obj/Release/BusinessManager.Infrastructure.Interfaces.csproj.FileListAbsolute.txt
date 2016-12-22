@@ -1,0 +1,4 @@
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Infrastructure.Interfaces\bin\Release\BusinessManager.Infrastructure.Interfaces.dll
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Infrastructure.Interfaces\bin\Release\BusinessManager.Infrastructure.Interfaces.pdb
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Infrastructure.Interfaces\obj\Release\BusinessManager.Infrastructure.Interfaces.dll
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Infrastructure.Interfaces\obj\Release\BusinessManager.Infrastructure.Interfaces.pdb

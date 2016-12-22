@@ -1,0 +1,87 @@
+﻿
+.section {
+    width: 30%;
+    float: left;
+    padding: 20px;
+    background: #F1F1F1;
+    margin-right: 3%;
+    margin-bottom: 1%;
+}
+
+    .section:last-child {
+        margin-right: 0;
+    }
+
+.float-right {
+    float: right !important;
+}
+
+.float-left {
+    float: left !important;
+}
+
+
+.clear-both {
+    clear:both;
+}
+
+.fullwidth {
+    width: 80%;
+    padding: 20px;
+    background: #F1F1F1;
+    margin: 0 auto;
+}
+
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+
+.left-align {
+    text-align: left !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.innerSection {
+    float:left;
+    background: #BABABA;
+    padding: 20px 0;
+}
+
+.innerSection p {
+    color: #fff;
+    padding: 0 20px;
+}
+
+.margin0 {
+    margin: 0 !important;
+}
+
+.padding0 {
+    padding: 0 !important;
+}
+
+.transparentSection {
+    float:left;
+    padding: 0px 15px;
+}
+
+.borderRadius50 {
+    border-radius: 50px !important;
+}
+
+.btnWidth {
+    max-width: 115px !important;
+}
+
+.fileSize {
+    float: left;
+    width: 80% !important;
+    margin-right: 10px;
+}

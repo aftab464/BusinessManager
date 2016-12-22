@@ -1,0 +1,32 @@
+﻿
+<div class="bannerContent">
+    <div class="contentContainer" id="banner">
+        <div class="headingCnt">
+            <h1 class="tagLineCnt">
+                Promoting better way of business management for better outcome 
+            </h1>
+            <span>Start making transactions.</span>
+
+            <button type="submit" class="moreBtn">SELL ITEMS<i></i></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="featuredSection home">
+    <div class="contentContainer ">
+        <div class="featuredCol">
+            <h2>Recently Made<span>Transactions</span></h2>
+        </div>
+    </div>
+</div><!-- featuredSection -->
+
+<script>
+    $(document).ready(function () {
+
+        if ('@ViewBag.ReturnUrl' != "") {
+            $('#loginHeader1,#loginHeader2').trigger('click');
+        }
+
+    });
+</script>

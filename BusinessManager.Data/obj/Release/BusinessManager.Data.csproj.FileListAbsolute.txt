@@ -1,0 +1,4 @@
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Data\bin\Release\BusinessManager.Data.dll
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Data\bin\Release\BusinessManager.Data.pdb
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Data\obj\Release\BusinessManager.Data.dll
+C:\Users\Aftab Ahmed\Documents\Visual Studio 2015\Projects\BusinessManager\BusinessManager.Data\obj\Release\BusinessManager.Data.pdb

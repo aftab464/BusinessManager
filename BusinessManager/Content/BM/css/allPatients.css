@@ -1,0 +1,355 @@
+﻿@charset "UTF-8";
+/*
+.button{
+  @extend .HelveticaRegular;
+   @include single-transition(background, 0.5s);
+  border-top: darken($black, 10%) 5px solid;
+ 
+  &:hover{
+   @include single-transition(background, 0.5s);
+  border-top: darken($black, 18%) 5px solid;
+  background: darken($black, 13%);
+  }
+ 
+}//button
+*/
+.button {
+  padding: 0px 10px;
+  color: #565656;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 40px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 0px 10px;
+  float: left;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../fonts/fontawesome-webfont.eot?v=4.6.2");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.6.2") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.6.2") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.6.2") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.6.2") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.6.2#fontawesomeregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.fa, .allpatientsView .downArrow:after, .allpatientsView .upArrow:after {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.allpatientsView .patientsCol {
+  width: 100%;
+  padding-bottom: 0px;
+}
+.allpatientsView .patientsSection {
+  overflow: hidden;
+  clear: both;
+}
+.allpatientsView .patientsHeader {
+  background: #416e86;
+  padding: 20px;
+  overflow: hidden;
+}
+.allpatientsView .patientsHeader .pname, .allpatientsView .patientsHeader .pdetail, .allpatientsView .patientsHeader .precommended {
+  width: 33.3%;
+  float: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+.allpatientsView .patientsHeader .pname a, .allpatientsView .patientsHeader .pdetail a, .allpatientsView .patientsHeader .precommended a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.allpatientsView .patientsHeader .pdetail {
+  width: 30.3%;
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientsHeader {
+    display: none;
+  }
+}
+.allpatientsView .patientRow {
+  position: relative;
+}
+.allpatientsView .patientRow span {
+  clear: both;
+  padding: 0px;
+  font-size: 13px;
+}
+.allpatientsView .patientRow .noPatient {
+ text-align: center
+}
+
+@media (max-width: 479px) {
+  .allpatientsView .patientRow span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientRow {
+    padding: 10px;
+  }
+}
+.allpatientsView .patientRecord, .allpatientsView .patientDetail {
+  width: 33.3%;
+  float: left;
+  line-height: 22px;
+}
+.allpatientsView .patientRecord a, .allpatientsView .patientDetail a {
+  font-size: 16px;
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientRecord a, .allpatientsView .patientDetail a {
+    font-size: 14px;
+  }
+}
+@media (max-width: 479px) {
+  .allpatientsView .patientRecord a, .allpatientsView .patientDetail a {
+    font-size: 13px;
+  }
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientRecord, .allpatientsView .patientDetail {
+    width: 100%;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    line-height: 15px;
+  }
+}
+.allpatientsView .patientDetail {
+  width: 30.3%;
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientDetail {
+    width: 100%;
+  }
+}
+.allpatientsView .patientRecommended {
+  width: 30.3%;
+  float: left;
+  margin-bottom: 0px;
+}
+@media (max-width: 767px) {
+  .allpatientsView .patientRecommended {
+    width: 100%;
+    padding-left: 50px;
+  }
+}
+.allpatientsView .appThumb {
+  float: left;
+  width: 45px;
+  height: 45px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  margin-right: 4%;
+  overflow: hidden;
+}
+.allpatientsView .appThumb img {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .allpatientsView .appThumb {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+  }
+}
+.allpatientsView .appTitle {
+  float: left;
+  line-height: 22px;
+}
+.allpatientsView .appTitle a {
+  display: block;
+  color: #416e86;
+  font-size: 16px;
+  text-decoration: none;
+  line-height: 18px;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.allpatientsView .appTitle a:hover {
+  color: #4086B2;
+}
+@media (max-width: 1023px) {
+  .allpatientsView .appTitle a {
+    font-weight: bold;
+  }
+}
+@media (max-width: 767px) {
+  .allpatientsView .appTitle a {
+    font-size: 14px;
+    line-height: 15px;
+  }
+}
+@media (max-width: 479px) {
+  .allpatientsView .appTitle a {
+    font-size: 13px;
+  }
+}
+@media (max-width: 1023px) {
+  .allpatientsView .appTitle {
+    width: calc(100% - 70px);
+  }
+}
+@media (max-width: 479px) {
+  .allpatientsView .appTitle {
+    width: 100%;
+  }
+}
+.allpatientsView .downArrow {
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.allpatientsView .downArrow:after {
+  padding: 2px 0px 0px 4px;
+  content: "";
+  font-size: 15px;
+  color:  #fa8072;;
+}
+.allpatientsView .upArrow {
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.allpatientsView .upArrow:after {
+  padding: 2px 0px 0px 4px;
+  content: "";
+  font-size: 15px;
+  color:  #fa8072;;
+}
+.allpatientsView .dd-container {
+  display: none;
+  float: left;
+  width: 100% !important;
+}
+@media (max-width: 767px) {
+  .allpatientsView .dd-container {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 479px) {
+  .allpatientsView .paginationWrapp span {
+    padding: 0px 6px;
+  }
+}
+
+.invetationNA {
+  color: red;
+}
+
+.recommendationSection .pname, .recommendationSection .allpatientsView .patientsHeader .pdetail, .allpatientsView .patientsHeader .recommendationSection .pdetail, .recommendationSection .allpatientsView .patientsHeader .precommended, .allpatientsView .patientsHeader .recommendationSection .precommended {
+  width: 40% !important;
+}
+.recommendationSection .pdetail {
+  width: 30% !important;
+}
+.recommendationSection .precommended {
+  width: 30% !important;
+}
+.recommendationSection .patientRecommended {
+  width: 40% !important;
+}
+@media (max-width: 767px) {
+  .recommendationSection .patientRecommended {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+}
+.recommendationSection .patientRecord, .recommendationSection .allpatientsView .patientDetail, .allpatientsView .recommendationSection .patientDetail {
+  width: 30% !important;
+}
+@media (max-width: 767px) {
+  .recommendationSection .patientRecord, .recommendationSection .allpatientsView .patientDetail, .allpatientsView .recommendationSection .patientDetail {
+    width: 100% !important;
+  }
+}
+.recommendationSection .patientDetail {
+  width: 30% !important;
+}
+@media (max-width: 767px) {
+  .recommendationSection .patientDetail {
+    width: 100% !important;
+  }
+}
+.recommendationSection h3 {
+  margin: 20px 0px 00px 20px;
+  color: #DEDEDE;
+  font-weight: normal;
+  font-size: 18px;
+}
+@media (max-width: 767px) {
+  .recommendationSection h3 {
+    margin: 10px 0 0 10px;
+    font-size: 17px;
+  }
+}
+
+.myrecommendationSection {
+  margin: 20px 0 20px !important;
+}
+
+.appselectionWrapp {
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+.appselectionWrapp .selectionInput {
+  display: none;
+  clear: both;
+  padding: 5px 19px;
+}
+.appselectionWrapp label {
+  float: left;
+  clear: both;
+  padding: 10px 0px;
+}
+.appselectionWrapp input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+}
+.appselectionWrapp .formField {
+  background: #ffffff;
+  border: 1px solid #416e86;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  padding: 13px 10px;
+  font-size: 16px;
+  color: #416e86;
+  outline: none;
+  width: 318px;
+}
+@media (max-width: 479px) {
+  .appselectionWrapp .formField {
+    width: 100%;
+    padding: 9px 10px;
+  }
+}
+.appselectionWrapp .appdate .formField {
+  width: 150px;
+}
+@media (max-width: 479px) {
+  .appselectionWrapp .appdate .formField {
+    width: 45%;
+  }
+}
